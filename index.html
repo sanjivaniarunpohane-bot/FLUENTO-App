@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#102c36">
+<meta name="description" content="Fluento — playful language learning with stages, quests, and progress.">
+<link rel="manifest" href="manifest.json">
+<title>Fluento — Learn a little every day</title>
+<style>
+:root{--ink:#17353c;--muted:#647b80;--bg:#f4faf8;--card:#fff;--teal:#147d78;--teal2:#dff5ee;--lime:#d7f36a;--orange:#ffb65c;--red:#d94f57;--line:#dce9e5;--shadow:0 8px 24px #153d3a12}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}button,input,select{font:inherit}button{cursor:pointer;border:0}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #f3a642;outline-offset:2px}
+header{position:sticky;top:0;z-index:5;background:#ffffffed;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:12px max(16px,calc((100vw - 1040px)/2));display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:950;font-size:1.35rem;letter-spacing:-.7px}.brandmark{display:grid;place-items:center;background:var(--teal);color:white;width:39px;height:39px;border-radius:13px;font-size:24px}
+.stats{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.pill{background:#f3f8f6;border:1px solid var(--line);padding:7px 10px;border-radius:999px;font-size:.9rem;font-weight:800}
+main{max-width:1040px;margin:0 auto;padding:22px 16px 100px}.hero{background:linear-gradient(120deg,#0e6965,#15434d);color:white;border-radius:25px;padding:23px;display:flex;align-items:center;justify-content:space-between;gap:18px;box-shadow:var(--shadow)}.hero h1{font-size:clamp(1.5rem,4vw,2.4rem);line-height:1.08;margin:5px 0 9px}.hero p{margin:0;color:#e2f8f2;max-width:520px}.mascot{font-size:76px;flex-shrink:0;filter:drop-shadow(0 8px 8px #001c223d)}.eyebrow{text-transform:uppercase;font-weight:900;font-size:.75rem;letter-spacing:1.3px;color:#bdece2}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:26px 0 13px}.section-head h2{margin:0;font-size:1.35rem}.muted{color:var(--muted);font-size:.92rem}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:var(--shadow)}.course-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.course-row select{background:white;border:1px solid var(--line);border-radius:12px;padding:10px;color:var(--ink);font-weight:750}.progress-track{height:9px;background:#e5efec;border-radius:99px;overflow:hidden;margin-top:9px}.progress-fill{height:100%;background:var(--teal);border-radius:99px;transition:width .25s}
+.stage-list{display:grid;gap:13px}.stage{display:grid;grid-template-columns:56px 1fr auto;gap:13px;align-items:center;background:white;border:1px solid var(--line);border-radius:19px;padding:14px;box-shadow:var(--shadow)}.stage.locked{opacity:.68;background:#f0f5f3}.stage-icon{width:54px;height:54px;border-radius:17px;background:var(--teal2);display:grid;place-items:center;font-size:27px}.stage.locked .stage-icon{background:#e7ecea}.stage h3{margin:0 0 3px;font-size:1.04rem}.stage p{margin:0;color:var(--muted);font-size:.88rem}.stage-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:7px}.mini{font-size:.77rem;font-weight:800;background:#f1f7f5;padding:4px 7px;border-radius:7px}
+.primary,.secondary,.danger{padding:11px 15px;border-radius:12px;font-weight:900;transition:transform .1s}.primary{background:var(--teal);color:white}.primary:active,.secondary:active{transform:scale(.98)}.primary:disabled{background:#a6bcb7;cursor:not-allowed;opacity:.85;touch-action:manipulation}.secondary{background:var(--teal2);color:var(--teal)}.danger{background:#ffeaeb;color:#a62e36}
+.tabs{position:fixed;z-index:6;bottom:0;left:0;right:0;display:flex;justify-content:center;gap:4px;background:#ffffffed;backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px 8px max(8px,env(safe-area-inset-bottom))}.tabs button{flex:1;max-width:170px;padding:9px 4px;border-radius:12px;background:transparent;color:var(--muted);font-size:.78rem;font-weight:850}.tabs button.active{background:var(--teal2);color:var(--teal)}.tabs span{display:block;font-size:1.2rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}.friend{display:flex;align-items:center;gap:12px}.avatar{width:46px;height:46px;border-radius:16px;display:grid;place-items:center;background:#fce8d2;font-size:25px}.friend-info{flex:1;min-width:0}.friend-info strong{display:block}.friend-info small{color:var(--muted)}.rank{font-weight:950;color:var(--teal)}
+.quiz-shell{max-width:700px;margin:0 auto}.quiz-top{display:flex;align-items:center;gap:12px;margin-bottom:20px}.quiz-progress{flex:1}.close-btn{background:#edf4f1;border-radius:50%;width:40px;height:40px;font-size:20px}.question-card{background:white;border:1px solid var(--line);border-radius:23px;padding:22px;box-shadow:var(--shadow)}.question-card h2{font-size:clamp(1.3rem,4vw,1.9rem);margin:8px 0 18px}.question-type{font-size:.75rem;letter-spacing:1px;text-transform:uppercase;color:var(--teal);font-weight:950}.options{display:grid;gap:10px}.option{border:2px solid var(--line);border-radius:14px;padding:13px;text-align:left;background:white;font-weight:750;color:var(--ink);width:100%;touch-action:manipulation; -webkit-tap-highlight-color:transparent}.option:disabled{opacity:1;cursor:default}.option.selected{border-color:var(--teal);background:var(--teal2)}.option.correct{border-color:#3a9c68;background:#e3f8e9}.option.wrong{border-color:var(--red);background:#ffebec}.feedback{padding:12px;border-radius:12px;margin-top:14px;font-weight:800}.feedback.good{background:#e3f8e9;color:#17633b}.feedback.bad{background:#ffebec;color:#a62e36}.quiz-actions{display:flex;justify-content:flex-end;margin-top:18px}
+.wordbank{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.wordbank button{background:#f0f7f4;border:1px solid var(--line);padding:8px 10px;border-radius:10px;font-weight:800}.answer-line{min-height:48px;border-bottom:2px dashed #bed2cc;padding:8px;display:flex;gap:7px;flex-wrap:wrap}.answer-line button{background:var(--teal2);color:var(--teal);padding:7px 9px;border-radius:9px;font-weight:800}
+.achievement{font-size:27px}.profile-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px}.metric{padding:15px;border:1px solid var(--line);border-radius:16px;background:white}.metric strong{display:block;font-size:1.5rem}.metric span{font-size:.86rem;color:var(--muted)}.empty{text-align:center;padding:28px;color:var(--muted)}
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:25px}
+@media(max-width:560px){header{padding:10px 12px}.brand{font-size:1.1rem}.brandmark{width:34px;height:34px}.stats{gap:5px}.pill{padding:6px 7px;font-size:.78rem}.hero{padding:19px}.mascot{font-size:57px}.stage{grid-template-columns:46px 1fr;gap:10px}.stage-icon{width:46px;height:46px}.stage>button{grid-column:2;justify-self:start}.stage p{font-size:.83rem}.section-head{align-items:start;flex-direction:column}.question-card{padding:17px}}
+
+.welcome{position:fixed;inset:0;z-index:20;min-height:100vh;display:grid;place-items:center;text-align:center;padding:32px 18px;background:radial-gradient(circle at 80% 20%,#d7f36a88,transparent 28%),linear-gradient(135deg,#e7faf4,#f7fbff);border-radius:28px;margin:18px 0}
+.welcome h1{font-size:clamp(42px,10vw,72px);letter-spacing:-2px;margin:8px 0;color:#147d78;font-weight:950}
+.director{position:absolute;right:16px;top:12px;font-size:12px;font-weight:900;letter-spacing:.5px}
+.welcome-inner{position:relative;max-width:560px;width:100%}
+.welcome .owl{font-size:76px}
+.level-menu{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px}
+.level-menu button{white-space:nowrap;background:#fff;border:1px solid var(--line);padding:10px 14px;border-radius:999px;font-weight:800}
+.level-menu button.active{background:var(--teal);color:white}
+.identity{overflow-wrap:anywhere;background:#e8f6ef;border:1px dashed #147d78;border-radius:14px;padding:12px}
+.reward-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.reward{background:#fff;border:1px solid var(--line);border-radius:14px;text-align:center;padding:12px 4px}
+.reward b{display:block;font-size:25px}
+.smallnote{font-size:12px;color:var(--muted)}
+
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="brandmark">F</div>Fluento</div>
+ <div class="stats"><div class="pill">🔥 <b id="streak">1</b></div><div class="pill">⚡ <b id="xp">0</b> XP</div><div class="pill">❤️ <b id="hearts">5</b></div></div>
+</header>
+<main id="app"></main>
+<div id="welcomeScreen" class="welcome" style="display:none"><div class="welcome-inner"><div class="director">DIRECTOR: NIRMIT</div><div class="owl">🦉</div><h1>FLUENTO</h1><h2>Learn a little. Grow every day.</h2><p>Languages, levels, friends, streaks and rewards — one lesson at a time.</p><button class="primary" onclick="enterFluento()">Start learning →</button></div></div>
+<nav class="tabs" aria-label="Main navigation">
+ <button data-tab="learn" class="active"><span>🗺️</span>Learn</button>
+ <button data-tab="friends"><span>👥</span>Friends</button>
+ <button data-tab="quests"><span>🎯</span>Quests</button>
+ <button data-tab="profile"><span>🏆</span>Profile</button>
+</nav>
+<script>
+const courses={
+ Spanish:{flag:"🇪🇸",label:"Spanish",stages:[
+ {title:"First Words",desc:"Greetings, yes/no, and polite phrases",icon:"👋",lessons:[
+  {q:"How do you say “Hello” in Spanish?",opts:["Hola","Adiós","Gracias","Agua"],a:"Hola",tip:"Hola means hello."},
+  {q:"What does “Gracias” mean?",opts:["Please","Thank you","Good night","Friend"],a:"Thank you",tip:"Gracias is a way to say thank you."},
+  {q:"Choose the Spanish word for “water”.",opts:["Pan","Agua","Casa","Libro"],a:"Agua",tip:"Agua means water."},
+  {q:"What does “Por favor” mean?",opts:["Please","Goodbye","Sorry","Welcome"],a:"Please",tip:"Por favor means please."},
+  {q:"Complete: Buenos ____ (Good morning).",opts:["días","libros","amigos","agua"],a:"días",tip:"Buenos días means good morning."},
+  {q:"Translate “Yes”.",opts:["No","Sí","Hola","Gracias"],a:"Sí",tip:"Sí means yes."}]},
+ {title:"People & Friends",desc:"Introduce yourself and meet people",icon:"🧑‍🤝‍🧑",lessons:[
+  {q:"What does “amigo” mean?",opts:["Friend","School","Food","Book"],a:"Friend",tip:"Amigo means a male friend; amiga is a female friend."},
+  {q:"“Me llamo Ana” means…",opts:["I am hungry","My name is Ana","I am at home","See you tomorrow"],a:"My name is Ana",tip:"Me llamo… is used to give your name."},
+  {q:"Choose “How are you?”",opts:["¿Cómo estás?","¿Dónde está?","Gracias","Buenas noches"],a:"¿Cómo estás?",tip:"¿Cómo estás? asks how someone is."},
+  {q:"What is “familia”?",opts:["Family","City","Teacher","Water"],a:"Family",tip:"Familia means family."},
+  {q:"Complete: Soy tu ____ (I am your friend).",opts:["amigo","agua","casa","día"],a:"amigo",tip:"Amigo means friend."},
+  {q:"What does “Mucho gusto” mean?",opts:["Nice to meet you","Good morning","I don't know","Goodbye"],a:"Nice to meet you",tip:"Mucho gusto is used when meeting someone."}]},
+ {title:"Food & Café",desc:"Order snacks and drinks",icon:"🥑",lessons:[
+  {q:"What does “pan” mean?",opts:["Bread","Milk","Apple","Rice"],a:"Bread",tip:"Pan means bread."},
+  {q:"Choose “I want water”.",opts:["Quiero agua","Tengo casa","Hola amigo","Soy libro"],a:"Quiero agua",tip:"Quiero means I want."},
+  {q:"What does “manzana” mean?",opts:["Apple","Orange","Bread","Cheese"],a:"Apple",tip:"Manzana means apple."},
+  {q:"“La cuenta, por favor” means…",opts:["The bill, please","Good morning","I am a student","One apple"],a:"The bill, please",tip:"Useful phrase when paying at a café."},
+  {q:"Which word means milk?",opts:["Leche","Agua","Pan","Sal"],a:"Leche",tip:"Leche means milk."},
+  {q:"Translate “I like coffee”.",opts:["Me gusta el café","Quiero una casa","Soy amigo","Buenas tardes"],a:"Me gusta el café",tip:"Me gusta means I like."}]},
+ {title:"Everyday Life",desc:"Talk about routines and places",icon:"🏡",lessons:[
+  {q:"What does “casa” mean?",opts:["House","Street","Food","School"],a:"House",tip:"Casa means house."},
+  {q:"Choose “Good night”.",opts:["Buenas noches","Buenos días","Por favor","Hasta luego"],a:"Buenas noches",tip:"Buenas noches means good night."},
+  {q:"What does “libro” mean?",opts:["Book","Friend","Door","City"],a:"Book",tip:"Libro means book."},
+  {q:"“¿Dónde está el baño?” asks…",opts:["Where is the bathroom?","What is your name?","How old are you?","How much is it?"],a:"Where is the bathroom?",tip:"¿Dónde está…? means where is…?"},
+  {q:"Choose the word for “school”.",opts:["Escuela","Leche","Noche","Amigo"],a:"Escuela",tip:"Escuela means school."},
+  {q:"What does “Hasta luego” mean?",opts:["See you later","Thank you","Good morning","Excuse me"],a:"See you later",tip:"Hasta luego is a casual goodbye."}]},
+ {title:"Checkpoint: Explorer",desc:"Mixed review of the first four stages",icon:"🚩",checkpoint:true,lessons:[
+  {q:"Translate “Thank you very much”.",opts:["Muchas gracias","Buenos días","Quiero pan","Me llamo"],a:"Muchas gracias",tip:"Muchas gracias means thank you very much."},
+  {q:"What does “Tengo hambre” mean?",opts:["I am hungry","I am happy","I am home","I am late"],a:"I am hungry",tip:"Tengo hambre is a common way to say I am hungry."},
+  {q:"Choose “Where is the school?”",opts:["¿Dónde está la escuela?","¿Cómo estás?","Me gusta el café","Buenas noches"],a:"¿Dónde está la escuela?",tip:"¿Dónde está…? means where is…?"},
+  {q:"What does “amiga” mean?",opts:["Female friend","Apple","Water","Book"],a:"Female friend",tip:"Amiga is a female friend."},
+  {q:"Choose the polite request for bread.",opts:["Pan, por favor","Adiós pan","Soy pan","Buenas pan"],a:"Pan, por favor",tip:"Por favor makes the request polite."},
+  {q:"What does “Hasta luego” mean?",opts:["See you later","Nice to meet you","Please","Family"],a:"See you later",tip:"You have completed the Explorer review!"}]},
+ {title:"Travel & Adventure",desc:"Ask for help and explore new places",icon:"🧭",lessons:[
+  {q:"What does “estación” mean?",opts:["Station","Kitchen","Window","Friend"],a:"Station",tip:"Estación can mean station."},
+  {q:"Choose “I need help”.",opts:["Necesito ayuda","Tengo una manzana","Me gusta el libro","Soy de aquí"],a:"Necesito ayuda",tip:"Necesito means I need."},
+  {q:"What does “izquierda” mean?",opts:["Left","Right","Straight","Near"],a:"Left",tip:"Izquierda means left."},
+  {q:"Choose “How much does it cost?”",opts:["¿Cuánto cuesta?","¿Cómo te llamas?","¿Qué hora es?","¿Dónde vives?"],a:"¿Cuánto cuesta?",tip:"A handy question when shopping."},
+  {q:"What does “billete” mean in travel?",opts:["Ticket","Breakfast","Street","Map"],a:"Ticket",tip:"Billete often means ticket."},
+  {q:"Translate “I am looking for the hotel”.",opts:["Busco el hotel","Quiero agua","Soy estudiante","Tengo sueño"],a:"Busco el hotel",tip:"Busco means I am looking for."}]},
+ {title:"Sentence Builder",desc:"Combine words into useful sentences",icon:"🧩",lessons:[
+  {q:"Choose “I speak a little Spanish”.",opts:["Hablo un poco de español","Estoy en casa","Me gusta la música","Necesito una mesa"],a:"Hablo un poco de español",tip:"Hablo means I speak."},
+  {q:"What does “¿Puedes repetir?” mean?",opts:["Can you repeat?","Can you pay?","Where are you?","Do you eat?"],a:"Can you repeat?",tip:"Useful when you don't understand."},
+  {q:"Choose “I don't understand”.",opts:["No entiendo","No quiero","No tengo","No gracias"],a:"No entiendo",tip:"No entiendo means I don't understand."},
+  {q:"What does “despacio” mean?",opts:["Slowly","Tomorrow","Always","Quickly"],a:"Slowly",tip:"Despacio means slowly."},
+  {q:"Choose “See you tomorrow”.",opts:["Hasta mañana","Hasta luego","Buenas noches","Mucho gusto"],a:"Hasta mañana",tip:"Mañana means tomorrow."},
+  {q:"What does “Estoy aprendiendo” mean?",opts:["I am learning","I am sleeping","I am eating","I am leaving"],a:"I am learning",tip:"Aprendiendo means learning."}]}
+ ]},
+ English:{flag:"🇬🇧",label:"English",stages:[
+ {title:"Everyday Words",desc:"Greetings and useful basics",icon:"👋",lessons:[
+ {q:"Choose a greeting.",opts:["Hello","Because","Under","Quickly"],a:"Hello",tip:"Hello is a greeting."},
+ {q:"Which word means the opposite of “cold”?",opts:["Hot","Slow","Small","Quiet"],a:"Hot",tip:"Hot is the opposite of cold."},
+ {q:"Complete: How ____ you?",opts:["are","is","am","be"],a:"are",tip:"The usual phrase is “How are you?”."},
+ {q:"Choose the polite word.",opts:["Please","Never","Maybe","Under"],a:"Please",tip:"Please makes a request polite."},
+ {q:"What is the plural of “book”?",opts:["Books","Bookes","Bookies","Book"],a:"Books",tip:"Add -s to most nouns."},
+ {q:"Choose the correct spelling.",opts:["Friend","Freind","Frend","Friand"],a:"Friend",tip:"Remember: friend."}]},
+ {title:"Build Sentences",desc:"Practice grammar and word order",icon:"🧱",lessons:[
+ {q:"Choose the correct sentence.",opts:["She is happy.","She happy is.","Is happy she.","Happy she are."],a:"She is happy.",tip:"Subject + verb + adjective."},
+ {q:"Complete: They ____ playing.",opts:["are","is","am","be"],a:"are",tip:"Use are with they."},
+ {q:"Choose the past tense of “go”.",opts:["Went","Goed","Gone yesterday","Going"],a:"Went",tip:"Go → went → gone."},
+ {q:"Choose the article: ____ apple.",opts:["An","A","The a","No article ever"],a:"An",tip:"Use an before a vowel sound."},
+ {q:"Choose the synonym of “quick”.",opts:["Fast","Late","Weak","Soft"],a:"Fast",tip:"Quick and fast are synonyms."},
+ {q:"Complete: I have lived here ____ 2022.",opts:["since","for","at","by"],a:"since",tip:"Use since with a starting point."}]},
+ {title:"Checkpoint: Communicator",desc:"Mixed grammar and vocabulary review",icon:"🚩",checkpoint:true,lessons:[
+ {q:"Choose the correct form.",opts:["He doesn't like tea.","He don't likes tea.","He doesn't likes tea.","He not like tea."],a:"He doesn't like tea.",tip:"After doesn't, use the base verb."},
+ {q:"What is the opposite of “generous”?",opts:["Selfish","Kind","Helpful","Giving"],a:"Selfish",tip:"Selfish is the opposite of generous."},
+ {q:"Choose the correct question.",opts:["Where do you live?","Where you live?","Where does you live?","Where are live you?"],a:"Where do you live?",tip:"Use do with you in the present simple."},
+ {q:"Choose the past tense of “teach”.",opts:["Taught","Teached","Teaching","Teach"],a:"Taught",tip:"Teach → taught."},
+ {q:"Complete: If it rains, we ____ inside.",opts:["will stay","stayed","staying","stays"],a:"will stay",tip:"First conditional: if + present, will + verb."},
+ {q:"Choose the correctly punctuated sentence.",opts:["Let's eat, Grandma!","Lets eat Grandma!","Let's eat Grandma","Lets eat, Grandma"],a:"Let's eat, Grandma!",tip:"Punctuation can change meaning."}]}
+ ]},
+ Hindi:{flag:"🇮🇳",label:"Hindi",stages:[
+ {title:"शुरुआती शब्द",desc:"नमस्ते और रोज़ के शब्द",icon:"🙏",lessons:[
+ {q:"“नमस्ते” का अर्थ क्या है?",opts:["अभिवादन","पानी","किताब","घर"],a:"अभिवादन",tip:"नमस्ते अभिवादन के लिए कहा जाता है।"},
+ {q:"“पानी” का अर्थ क्या है?",opts:["Water","Book","Friend","School"],a:"Water",tip:"पानी = Water"},
+ {q:"“धन्यवाद” का अर्थ क्या है?",opts:["Thank you","Goodbye","Please","Friend"],a:"Thank you",tip:"धन्यवाद = Thank you"},
+ {q:"“मित्र” का अर्थ क्या है?",opts:["Friend","Food","House","Book"],a:"Friend",tip:"मित्र = Friend"},
+ {q:"“घर” का अर्थ क्या है?",opts:["House","School","Water","Day"],a:"House",tip:"घर = House"},
+ {q:"“हाँ” का अर्थ क्या है?",opts:["Yes","No","Please","Hello"],a:"Yes",tip:"हाँ = Yes"}]},
+ {title:"वाक्य अभ्यास",desc:"सरल वाक्य और रोज़ की बातचीत",icon:"💬",lessons:[
+ {q:"“मेरा नाम रीना है” का अर्थ?",opts:["My name is Reena","I am hungry","I go home","Thank you"],a:"My name is Reena",tip:"मेरा नाम… है = My name is…"},
+ {q:"“आप कैसे हैं?” का अर्थ?",opts:["How are you?","Where is it?","What is this?","Good night"],a:"How are you?",tip:"आप कैसे हैं? = How are you?"},
+ {q:"“कृपया” का अर्थ क्या है?",opts:["Please","Sorry","Friend","Water"],a:"Please",tip:"कृपया = Please"},
+ {q:"“विद्यालय” का अर्थ?",opts:["School","Home","Food","City"],a:"School",tip:"विद्यालय = School"},
+ {q:"“अलविदा” का अर्थ?",opts:["Goodbye","Welcome","Thanks","Please"],a:"Goodbye",tip:"अलविदा = Goodbye"},
+ {q:"“मुझे मदद चाहिए” का अर्थ?",opts:["I need help","I like tea","I am fine","I am a student"],a:"I need help",tip:"मुझे मदद चाहिए = I need help"}]}
+ ]}
+};
+
+// Additional beginner courses: five themed stages, five questions per stage.
+const extraCourses = {
+ French:{flag:"🇫🇷",label:"French",words:[
+ ["Greetings","👋","Bonjour","Hello","Merci","Thank you","Au revoir","Goodbye","S’il vous plaît","Please","Oui","Yes"],
+ ["Friends","🧑‍🤝‍🧑","ami","friend","amie","female friend","Comment ça va ?","How are you?","Je m’appelle Léa","My name is Léa","Enchanté","Nice to meet you"],
+ ["Food","🥐","pain","bread","eau","water","pomme","apple","lait","milk","Je voudrais de l’eau","I would like water"],
+ ["Places","🏡","maison","house","école","school","livre","book","ville","city","Où est la gare ?","Where is the station?"],
+ ["Everyday","🌞","bonjour","hello","bonne nuit","good night","excusez-moi","excuse me","à demain","see you tomorrow","Je ne comprends pas","I don't understand"]]},
+ German:{flag:"🇩🇪",label:"German",words:[
+ ["Greetings","👋","Hallo","Hello","Danke","Thank you","Tschüss","Goodbye","Bitte","Please","Ja","Yes"],
+ ["Friends","🧑‍🤝‍🧑","Freund","friend","Freundin","female friend","Wie geht’s?","How are you?","Ich heiße Mia","My name is Mia","Freut mich","Nice to meet you"],
+ ["Food","🥨","Brot","bread","Wasser","water","Apfel","apple","Milch","milk","Ich möchte Wasser","I would like water"],
+ ["Places","🏡","Haus","house","Schule","school","Buch","book","Stadt","city","Wo ist der Bahnhof?","Where is the station?"],
+ ["Everyday","🌞","Guten Morgen","good morning","Gute Nacht","good night","Entschuldigung","excuse me","Bis morgen","see you tomorrow","Ich verstehe nicht","I don't understand"]]},
+ Italian:{flag:"🇮🇹",label:"Italian",words:[
+ ["Greetings","👋","Ciao","Hello","Grazie","Thank you","Arrivederci","Goodbye","Per favore","Please","Sì","Yes"],
+ ["Friends","🧑‍🤝‍🧑","amico","friend","amica","female friend","Come stai?","How are you?","Mi chiamo Luca","My name is Luca","Piacere","Nice to meet you"],
+ ["Food","🍕","pane","bread","acqua","water","mela","apple","latte","milk","Vorrei dell’acqua","I would like water"],
+ ["Places","🏡","casa","house","scuola","school","libro","book","città","city","Dov’è la stazione?","Where is the station?"],
+ ["Everyday","🌞","Buongiorno","good morning","Buonanotte","good night","Scusa","excuse me","A domani","see you tomorrow","Non capisco","I don't understand"]]},
+ Portuguese:{flag:"🇧🇷",label:"Portuguese",words:[
+ ["Greetings","👋","Olá","Hello","Obrigado/a","Thank you","Tchau","Goodbye","Por favor","Please","Sim","Yes"],
+ ["Friends","🧑‍🤝‍🧑","amigo","friend","amiga","female friend","Tudo bem?","How are you?","Meu nome é Ana","My name is Ana","Prazer","Nice to meet you"],
+ ["Food","🥭","pão","bread","água","water","maçã","apple","leite","milk","Quero água","I want water"],
+ ["Places","🏡","casa","house","escola","school","livro","book","cidade","city","Onde fica a estação?","Where is the station?"],
+ ["Everyday","🌞","Bom dia","good morning","Boa noite","good night","Com licença","excuse me","Até amanhã","see you tomorrow","Não entendo","I don't understand"]]},
+ Japanese:{flag:"🇯🇵",label:"Japanese",words:[
+ ["Greetings","👋","こんにちは","Hello","ありがとう","Thank you","さようなら","Goodbye","お願いします","Please","はい","Yes"],
+ ["Friends","🧑‍🤝‍🧑","友だち","friend","元気ですか","How are you?","私はミアです","I am Mia","はじめまして","Nice to meet you","家族","family"],
+ ["Food","🍙","パン","bread","水","water","りんご","apple","牛乳","milk","水をください","Water, please"],
+ ["Places","🏡","家","house","学校","school","本","book","町","town","駅はどこですか","Where is the station?"],
+ ["Everyday","🌞","おはよう","good morning","こんばんは","good evening","すみません","excuse me","また明日","see you tomorrow","わかりません","I don't understand"]]},
+ Korean:{flag:"🇰🇷",label:"Korean",words:[
+ ["Greetings","👋","안녕하세요","Hello","감사합니다","Thank you","안녕히 가세요","Goodbye","주세요","Please / give me","네","Yes"],
+ ["Friends","🧑‍🤝‍🧑","친구","friend","잘 지내요?","How are you?","제 이름은 미아예요","My name is Mia","만나서 반가워요","Nice to meet you","가족","family"],
+ ["Food","🍚","빵","bread","물","water","사과","apple","우유","milk","물 주세요","Water, please"],
+ ["Places","🏡","집","house","학교","school","책","book","도시","city","역이 어디예요?","Where is the station?"],
+ ["Everyday","🌞","좋은 아침","good morning","안녕히 주무세요","good night","실례합니다","excuse me","내일 봐요","see you tomorrow","모르겠어요","I don't know"]]}
+};
+for (const [name,c] of Object.entries(extraCourses)) {
+ const stages=c.words.map((w,si)=>({title:w[0],desc:["Greetings and polite phrases","Meet people and introduce yourself","Useful food and drink words","Find places around town","Everyday expressions"][si],icon:w[1],lessons:Array.from({length:5},(_,j)=>{
+  const pair=(j*2)%((w.length-2)/2), target=w[2+pair*2], meaning=w[3+pair*2];
+  const opts=[meaning,w[3+((pair+1)%((w.length-2)/2))*2],w[3+((pair+2)%((w.length-2)/2))*2],"Not sure"].filter((x,i,a)=>a.indexOf(x)===i);
+  while(opts.length<4)opts.push(["Goodbye","Thank you","Hello","Please"][opts.length%4]);
+  return {q:`What does “${target}” mean?`,opts:opts.slice(0,4),a:meaning,tip:`${target} means “${meaning}”.`};
+ })}));
+ courses[name]={flag:c.flag,label:c.label,stages};
+}
+
+const initial={course:"Spanish",xp:0,hearts:5,streak:1,done:{},earned:[],tab:"learn",name:"Learner",friends:[{name:"Aarav",emoji:"🦊",xp:120},{name:"Mira",emoji:"🐼",xp:95},{name:"Kabir",emoji:"🐯",xp:80}],today:0,lastDay:"",questsClaimed:[],userId:"",welcomeSeen:false,weekDays:[],medals:[],reminderHour:"19:00",lastRewardDay:""};
+let state;try{state={...initial,...JSON.parse(localStorage.getItem("fluento-save")||"{}")}}catch{state={...initial}}
+let current=null,qi=0,score=0,selected=null,wordAnswer=[];
+function save(){localStorage.setItem("fluento-save",JSON.stringify(state));updateStats()}
+function enterFluento(){state.welcomeSeen=true;if(!state.userId)state.userId="FL-"+Math.random().toString(36).slice(2,8).toUpperCase();save();render()}
+function currentStage(){const c=getCourse();return c.stages.filter((s,i)=>isDone(i)).length}
+function stageLabel(){return "Stage "+Math.min(currentStage()+1,getCourse().stages.length)+" · "+getCourse().label}
+function copyFluentoId(){if(!state.userId)state.userId="FL-"+Math.random().toString(36).slice(2,8).toUpperCase();save();if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(state.userId+" | "+stageLabel()).then(()=>alert("Fluento ID copied!")).catch(()=>prompt("Copy your Fluento ID:",state.userId));else prompt("Copy your Fluento ID:",state.userId)}
+function recordDailyPractice(){const today=new Date().toISOString().slice(0,10);if(state.lastDay!==today){const yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);state.streak=state.lastDay===yesterday?(state.streak||0)+1:1;state.lastDay=today;state.weekDays=state.weekDays||[];state.weekDays.push(today);state.weekDays=[...new Set(state.weekDays)].slice(-7);state.lastRewardDay=today;if(state.weekDays.length>=7&&!state.medals?.includes("🥇")){state.medals=state.medals||[];state.medals.push("🥇");alert("Amazing! You earned the 7-day Gold medal 🥇");}else if(state.streak>=3&&!state.medals?.includes("🥈")){state.medals=state.medals||[];state.medals.push("🥈");}}}
+async function enableReminders(){if(!("Notification" in window)){alert("Notifications are not supported in this browser.");return;}const p=await Notification.requestPermission();if(p==="granted"){new Notification("Fluento reminders enabled",{body:"Keep your daily language streak alive! Open Fluento each day to practise."});alert("Notifications allowed. For reliable reminders while the app is closed, Fluento needs a push-notification server; this offline version cannot guarantee background reminders.");}else alert("Notifications were not allowed. You can enable them in your browser settings.");}
+function addFriendById(){const id=prompt("Enter your friend's Fluento ID:");if(!id)return;alert("ID lookup needs an online Fluento account server. For now, share your ID and stage with your friend; friends shown here are demo profiles.");}
+function updateStats(){document.getElementById("xp").textContent=state.xp;document.getElementById("hearts").textContent=state.hearts;document.getElementById("streak").textContent=state.streak}
+function doneKey(si){return state.course+"-"+si}
+function isDone(si){return !!state.done[doneKey(si)]}
+function isUnlocked(si){return si===0||isDone(si-1)}
+function getCourse(){return courses[state.course]}
+function setTab(tab){state.tab=tab;save();render()}
+document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
+function render(){
+ updateStats();const welcome=document.getElementById("welcomeScreen"); if(welcome) welcome.style.display=state.welcomeSeen?"none":"grid"; const app=document.getElementById("app");
+ if(state.tab==="learn")app.innerHTML=learnHTML();
+ else if(state.tab==="friends")app.innerHTML=friendsHTML();
+ else if(state.tab==="quests")app.innerHTML=questsHTML();
+ else app.innerHTML=profileHTML();
+ document.querySelectorAll("[data-tab]").forEach(b=>b.classList.toggle("active",b.dataset.tab===state.tab));
+}
+function learnHTML(){let c=getCourse(),finished=c.stages.filter((s,i)=>isDone(i)).length,pct=Math.round(finished/c.stages.length*100);
+ return `<section class="hero"><div><div class="eyebrow">YOUR DAILY LANGUAGE QUEST</div><h1>Small steps.<br>Big fluency.</h1><p>Learn at your pace with stages, checkpoints, and Ollie cheering you on.</p></div><div class="mascot" aria-label="Ollie the owl">🦉</div></section>
+ <div class="section-head"><div><h2>Your learning path</h2><div class="muted">${c.flag} ${c.label} · ${finished}/${c.stages.length} stages completed</div></div></div>
+ <div class="panel"><div class="course-row"><label for="courseSelect"><b>Learning language</b></label><select id="courseSelect">${Object.keys(courses).map(k=>`<option ${k===state.course?"selected":""}>${k}</option>`).join("")}</select><span class="muted">Choose a course</span></div><div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div><div class="muted" style="margin-top:7px">${pct}% path complete</div></div>
+ <div class="section-head"><h2>Stages</h2><span class="muted">Complete all 5 questions in a stage to unlock the next</span></div>
+ <div class="stage-list">${c.stages.map((s,i)=>{let d=isDone(i),u=isUnlocked(i);return `<article class="stage ${u?"":"locked"}"><div class="stage-icon">${d?"✅":u?s.icon:"🔒"}</div><div><h3>${i+1}. ${s.title}</h3><p>${s.desc}</p><div class="stage-meta"><span class="mini">${s.lessons.length} questions</span><span class="mini">${s.checkpoint?"🏁 Checkpoint":"⭐ "+(s.lessons.length*10)+" XP"}</span>${d?'<span class="mini">Completed</span>':""}</div></div><button class="${u?"primary":"secondary"}" ${u?"":"disabled"} onclick="startLesson(${i})">${d?"Practice":s.checkpoint?"Start checkpoint":u?"Start":"Locked"}</button></article>`}).join("")}</div>
+ <footer>Fluento is an independent learning project with original branding.</footer>`;
+}
+function friendsHTML(){let list=[{name:state.name||"You",emoji:"🦉",xp:state.xp,you:true},...state.friends].sort((a,b)=>b.xp-a.xp);
+ return `<div class="section-head"><div><h2>Friends Circle 👥</h2><div class="muted">Practice together and celebrate each other's progress.</div></div></div>
+ <section class="hero"><div><div class="eyebrow">THIS WEEK</div><h1>Every XP counts!</h1><p>Keep your learning streak going. Demo friends are shown until online accounts are connected.</p></div><div class="mascot">🦉</div></section>
+ <div class="panel"><h3>Your Fluento ID</h3><div class="identity"><b id="myFluentoId">${state.userId||"Tap Share ID to create one"}</b><p>${stageLabel()} · ${currentStage()} stages completed</p><button class="primary" onclick="copyFluentoId()">Share / copy my ID</button> <button class="secondary" onclick="addFriendById()">Add friend by ID</button><p class="smallnote">Friends can see your stage only when accounts are connected to an online server. This version stores your progress on this device.</p></div></div>
+ <div class="section-head"><h2>Weekly leaderboard</h2><span class="muted">XP totals</span></div>
+ <div class="panel">${list.map((f,i)=>`<div class="friend" style="padding:11px 0;border-bottom:1px solid var(--line)"><div class="avatar">${f.emoji}</div><div class="friend-info"><strong>${f.you?"You":escapeText(f.name)} ${f.you?"(you)":""}</strong><small>${f.you?"Your learning journey":"Fluento learner"}</small></div><div class="rank">#${i+1} · ${f.xp} XP</div></div>`).join("")}</div>
+ <div class="section-head"><h2>Add a demo friend</h2></div><div class="panel"><p class="muted">This adds a sample profile on this device. It does not send a real invite.</p><div class="course-row"><input id="friendName" placeholder="Friend's nickname" maxlength="20" style="flex:1;min-width:140px;border:1px solid var(--line);padding:11px;border-radius:12px"><button class="primary" onclick="addFriend()">＋ Add friend</button></div></div>`;
+}
+function questsHTML(){let stages=getCourse().stages,completed=stages.filter((s,i)=>isDone(i)).length,allQuestions=stages.reduce((a,s)=>a+s.lessons.length,0),claimable=completed>=1;
+ return `<div class="section-head"><div><h2>Daily quests 🎯</h2><div class="muted">Tiny goals that build a lasting habit.</div></div></div><div class="cards">
+ <div class="panel"><div class="achievement">📚</div><h3>Lesson explorer</h3><p class="muted">Complete one stage today.</p><div class="progress-track"><div class="progress-fill" style="width:${Math.min(100,completed*100)}%"></div></div><p><b>${Math.min(completed,1)}/1 stage</b></p><button class="${claimable&&!state.questsClaimed.includes("explorer")?"primary":"secondary"}" ${claimable&&!state.questsClaimed.includes("explorer")?"":"disabled"} onclick="claimQuest('explorer',20)">Claim +20 XP</button></div>
+ <div class="panel"><div class="achievement">🧠</div><h3>Curious mind</h3><p class="muted">Answer questions and collect XP.</p><p><b>${state.xp} XP collected</b></p><div class="progress-track"><div class="progress-fill" style="width:${Math.min(100,state.xp/100*100)}%"></div></div><p class="muted">Reach 100 XP to complete this quest.</p><button class="secondary" disabled>${state.xp>=100?"Goal reached":"Keep learning"}</button></div>
+ <div class="panel"><div class="achievement">🔥</div><h3>Come back tomorrow</h3><p class="muted">Return regularly to build your streak.</p><p><b>${state.streak} day streak</b></p><span class="mini">Streak tracking is stored on this device</span></div></div>`;
+}
+function profileHTML(){let completed=Object.keys(state.done).filter(k=>state.done[k]).length;return `<div class="panel"><h2>🔥 Weekly rewards</h2><p>Practise each day to build your streak and earn medals.</p><div class="reward-row"><div class="reward"><b>🔥</b><span>Daily streak</span></div><div class="reward"><b>🥈</b><span>Silver</span></div><div class="reward"><b>🥇</b><span>Gold</span></div><div class="reward"><b>💎</b><span>Diamond</span></div></div><p><b>Current streak:</b> ${state.streak||0} days · <b>Medals:</b> ${(state.medals||[]).join(" ")||"Keep practising!"}</p><button class="primary" onclick="enableReminders()">Enable reminders</button><p class="smallnote">This version awards streaks and medals locally. It does not delete earned medals for missed days; reminder delivery while the app is closed requires a push server.</p></div><div class="section-head"><div><h2>Your profile 🏆</h2><div class="muted">A record of the progress on this device.</div></div></div><div class="panel"><div class="course-row"><div class="mascot" style="font-size:55px">🦉</div><div style="flex:1"><label for="playerName"><b>Your nickname</b></label><input id="playerName" value="${escapeAttr(state.name||"Learner")}" maxlength="24" style="display:block;width:100%;margin-top:6px;padding:11px;border:1px solid var(--line);border-radius:12px"><button class="secondary" style="margin-top:9px" onclick="saveName()">Save nickname</button></div></div></div><div class="section-head"><h2>Your stats</h2></div><div class="profile-grid"><div class="metric"><strong>⚡ ${state.xp}</strong><span>Total XP</span></div><div class="metric"><strong>🔥 ${state.streak}</strong><span>Day streak</span></div><div class="metric"><strong>✅ ${completed}</strong><span>Stages completed</span></div><div class="metric"><strong>🏅 ${state.earned.length}</strong><span>Badges earned</span></div></div><div class="section-head"><h2>Achievements</h2></div><div class="cards"><div class="panel"><div class="achievement">🌱</div><h3>First Steps</h3><p class="muted">Finish your first stage.</p><span class="mini">${completed>=1?"Unlocked":"Not yet unlocked"}</span></div><div class="panel"><div class="achievement">⭐</div><h3>XP Collector</h3><p class="muted">Earn 100 XP.</p><span class="mini">${state.xp>=100?"Unlocked":"Not yet unlocked"}</span></div><div class="panel"><div class="achievement">🏁</div><h3>Checkpoint Champion</h3><p class="muted">Complete a checkpoint stage.</p><span class="mini">${getCourse().stages.some((s,i)=>s.checkpoint&&isDone(i))?"Unlocked":"Not yet unlocked"}</span></div></div><div class="section-head"><h2>Settings</h2></div><div class="panel"><p class="muted">Your progress is saved locally in this browser. Clearing browser data may erase it.</p><button class="danger" onclick="resetProgress()">Reset progress</button></div>`}
+function escapeText(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function escapeAttr(s){return escapeText(s).replace(/'/g,"&#39;")}
+document.addEventListener("change",e=>{if(e.target.id==="courseSelect"){state.course=e.target.value;save();render()}});
+function startLesson(i){if(!isUnlocked(i))return;current=i;qi=0;score=0;selected=null;showQuestion()}
+function showQuestion(){const app=document.getElementById("app"),s=getCourse().stages[current],q=s.lessons[qi];app.innerHTML=`<div class="quiz-shell"><div class="quiz-top"><button class="close-btn" onclick="exitQuiz()" aria-label="Exit lesson">×</button><div class="quiz-progress"><div class="progress-track"><div class="progress-fill" style="width:${qi/s.lessons.length*100}%"></div></div></div><b>❤️ ${state.hearts}</b></div><div class="question-card"><div class="question-type">${s.checkpoint?"🏁 Checkpoint":`Stage ${current+1}`} · Question ${qi+1}/${s.lessons.length}</div><h2>${q.q}</h2><div class="options">${q.opts.map((o,i)=>`<button class="option ${selected===o?"selected":""}" type="button" onclick="chooseAnswer(this)">${escapeText(o)}</button>`).join("")}</div><div id="feedback"></div><div class="quiz-actions"><button class="primary" id="checkBtn" onclick="checkAnswer()" disabled>Check answer</button></div></div><p class="muted" style="text-align:center;margin-top:16px">Ollie says: “You can do it. One question at a time!” 🦉</p></div>`}
+function chooseAnswer(button){
+ if(!button || !button.classList.contains("option") || button.disabled) return;
+ selected=button.textContent.trim();
+ document.querySelectorAll(".option").forEach(b=>b.classList.toggle("selected",b===button));
+ const btn=document.getElementById("checkBtn");
+ if(btn){btn.disabled=false;btn.textContent="Check answer";btn.onclick=checkAnswer;}
+}
+function checkAnswer(){
+ if(typeof selected!=="string" || !selected) return;
+ const q=getCourse().stages[current].lessons[qi];
+ const chosen=selected;
+ const ok=chosen===q.a;
+ const fb=document.getElementById("feedback");
+ fb.className="feedback "+(ok?"good":"bad");
+ fb.textContent=(ok?"Correct! +10 XP. ":"Not quite. ")+q.tip;
+ document.querySelectorAll(".option").forEach(b=>{
+   b.disabled=true;
+   if(b.textContent===q.a)b.classList.add("correct");
+   else if(b.textContent===chosen)b.classList.add("wrong");
+ });
+ const btn=document.getElementById("checkBtn");
+ btn.textContent=qi===getCourse().stages[current].lessons.length-1?"Finish stage":"Continue";
+ btn.onclick=nextQuestion;
+ btn.disabled=false;
+ selected=ok ? "__correct__" : "__incorrect__";
+}
+function nextQuestion(){
+ if(selected==="__correct__"){score++;state.xp+=10;}
+ else if(selected==="__incorrect__"){state.hearts=Math.max(0,state.hearts-1);}
+ qi++;selected=null;save();
+ if(qi<getCourse().stages[current].lessons.length)showQuestion();
+ else finishLesson();
+}
+function finishLesson(){let key=doneKey(current),wasDone=!!state.done[key],s=getCourse().stages[current];if(!wasDone){state.done[key]=true;state.xp+=Math.max(0,score*2);if(!state.earned.includes("first")&&Object.values(state.done).some(Boolean))state.earned.push("first");if(s.checkpoint)state.earned.push("checkpoint");}save();document.getElementById("app").innerHTML=`<div class="quiz-shell"><div class="question-card" style="text-align:center"><div style="font-size:74px">${score>=s.lessons.length*.75?"🎉":"🦉"}</div><div class="eyebrow" style="color:var(--teal)">STAGE COMPLETE</div><h2>${score>=s.lessons.length*.75?"Brilliant work!":"Nice effort — keep practising!"}</h2><p>You answered <b>${score} of ${s.lessons.length}</b> questions correctly.</p><div class="profile-grid"><div class="metric"><strong>+${score*10+score*2}</strong><span>XP earned this round</span></div><div class="metric"><strong>${Math.round(score/s.lessons.length*100)}%</strong><span>Accuracy</span></div></div><p class="muted">Ollie says: “Every try helps you grow!”</p><button class="primary" style="width:100%;margin-top:10px" onclick="state.tab='learn';save();render()">Back to learning path</button>${current+1<getCourse().stages.length&&isUnlocked(current+1)?`<button class="secondary" style="width:100%;margin-top:9px" onclick="startLesson(${current+1})">Continue to next stage →</button>`:""}</div></div>`}
+function exitQuiz(){current=null;state.tab="learn";render()}
+function addFriend(){let el=document.getElementById("friendName"),name=el.value.trim();if(!name){el.focus();return}if(state.friends.some(f=>f.name.toLowerCase()===name.toLowerCase())){alert("That nickname is already in your demo circle.");return}state.friends.push({name,emoji:["🐸","🐨","🦊","🐼","🐯","🐧"][state.friends.length%6],xp:Math.floor(Math.random()*90)});save();render()}
+function claimQuest(id,xp){if(state.questsClaimed.includes(id))return;state.questsClaimed.push(id);state.xp+=xp;save();render()}
+function saveName(){let el=document.getElementById("playerName");state.name=el.value.trim()||"Learner";save();render()}
+function resetProgress(){if(confirm("Reset your XP, stages, and local progress? This cannot be undone.")){state={...initial,friends:[...initial.friends],done:{},earned:[],questsClaimed:[],userId:"",welcomeSeen:false,weekDays:[],medals:[],reminderHour:"19:00",lastRewardDay:""};save();render()}}
+updateStats();render();
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+</script>
+</body></html>
